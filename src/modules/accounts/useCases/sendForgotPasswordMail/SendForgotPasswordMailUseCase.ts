@@ -1,0 +1,62 @@
+import { inject, injectable } from "tsyringe";
+
+import { v4 as uuidV4 } from 'uuid';
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { AppError } from "@shared/errors/AppErrors";
+import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
+import auth from "@config/auth";
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
+import { Subject } from "typeorm/persistence/Subject";
+import { resolve } from "path";
+
+
+@injectable()
+class SendForgotPasswordMailUseCase {
+
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository,
+    @inject("UsersTokensRepository")
+    private usersTokensRepository: IUsersTokensRepository,
+    @inject("DayjsDateProvider")
+    private dateProvider: IDateProvider,
+    @inject("MailProvider")
+    private mailProvider: IMailProvider
+  ) { }
+
+  async execute(email: string): Promise<void> {
+    const user = await this.usersRepository.findByEmail(email);
+
+    const templatePath = resolve(__dirname, "..", "..", "views", "emails", "forgotPassword.hbs");
+
+    if (!user) {
+      throw new AppError("Invalid email");
+    }
+
+    const token = uuidV4();
+
+    const expiresAt = await this.dateProvider.addHours(auth.expiresInHours);
+
+    await this.usersTokensRepository.create({
+      refresh_token: token,
+      user_id: user.id,
+      expires_date: expiresAt
+    });
+
+    const variables = {
+      name: user.name,
+      link: `${process.env.FORGOT_MAIL_URL}${token}`
+    }
+
+    await this.mailProvider.sendMail(
+      email,
+      "Recuperação de senha",
+      variables,
+      templatePath
+    );
+
+  }
+}
+
+export { SendForgotPasswordMailUseCase }
