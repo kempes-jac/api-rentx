@@ -9,7 +9,8 @@
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "test": "NODE_ENV=test jest -i",
     "test1": "NODE_ENV=test jest -i --detectOpenHandles",
-    "seed:admin": "ts-node-dev -r tsconfig-paths/register  src/shared/infra/typeorm/seed/admin.ts"
+    "seed:admin": "ts-node-dev -r tsconfig-paths/register  src/shared/infra/typeorm/seed/admin.ts",
+    "prod": "node ./dist/shared/infra/http/server.js"
   },
   "dependencies": {
     "aws-sdk": "^2.1152.0",
