@@ -37,12 +37,12 @@ jobs:
         
       
       - uses: appleboy/scp-action@master
-        with:
+        env:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
+        with:
           source: ". !node_modules"
           target: "test"
-          debug: true
       
