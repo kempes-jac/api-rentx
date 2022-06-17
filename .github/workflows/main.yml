@@ -24,6 +24,20 @@ jobs:
       - name: Build the project
         run: yarn build
         
+      - name: Replace dev by prod dir
+        uses: jacobtomlinson/gha-find-replace@v2  
+        with:
+          find: "src"
+          replace: "dist"
+          include: "index.js"
+      
+      - name: Replace dev files by prod files
+        uses: jacobtomlinson/gha-find-replace@v2  
+        with:
+          find: "*.ts"
+          replace: "*.js"
+          include: "index.js"
+        
       - uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
