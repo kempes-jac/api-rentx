@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "TZ='America/Maceio' ts-node-dev  -r tsconfig-paths/register --inspect --transpile-only  --ignore-watch node_modules  --respawn src/shared/infra/http/server.ts",
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "build": "babel src --extensions \".js,.ts\" --out-dir ./dist --copy-files && sed -i 's/src/dist/g' dist/shared/infra/typeorm/index.js && sed -i 's/*.ts/*.js/g' dist/shared/infra/typeorm/index.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "test": "NODE_ENV=test jest -i",
     "test1": "NODE_ENV=test jest -i --detectOpenHandles",
