@@ -43,5 +43,5 @@ jobs:
           command: |
             cd ~/app/api_rentx
             yarn
-            ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/
+            ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/indes.js
             pm2 restart rentx
