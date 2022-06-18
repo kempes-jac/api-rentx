@@ -40,8 +40,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ~/app/api_rentx
-            yarn
-            ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/
-            pm2 restart rentx
+          script: whoami
+#            cd ~/app/api_rentx
+#            yarn
+#            ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/
+#            pm2 restart rentx
