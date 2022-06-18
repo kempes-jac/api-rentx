@@ -44,4 +44,4 @@ jobs:
             cd ~/app/api-rentx
             yarn
             ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/
-            pm2 restart rentx
+            pm2 restart api-rentx
