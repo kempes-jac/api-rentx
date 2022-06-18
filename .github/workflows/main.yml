@@ -41,7 +41,7 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           command: |
-            cd ~/app/api_rentx
+            cd ~/app/api-rentx
             yarn
             ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/
             pm2 restart rentx
