@@ -31,7 +31,7 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           source: "., !node_modules"
-          target: "~/app/api_rentx"
+          target: "~/app/api-rentx"
           
       - name: Update API
         uses: fifsky/ssh-action@master
@@ -43,5 +43,5 @@ jobs:
           command: |
             cd ~/app/api_rentx
             yarn
-            ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/index.js
+            ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/
             pm2 restart rentx
