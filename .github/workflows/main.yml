@@ -34,14 +34,14 @@ jobs:
           target: "~/app/api_rentx"
           
       - name: Update API
-        uses: appleboy/ssh-action@master
+        uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: whoami
-#            cd ~/app/api_rentx
-#            yarn
-#            ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/
-#            pm2 restart rentx
+            cd ~/app/api_rentx
+            yarn
+            ./node_modules/.bin/typeorm migration:run -d ./dist/shared/infra/typeorm/
+            pm2 restart rentx
